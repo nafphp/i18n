@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace NixPHP\I18n\Events;
+namespace Naf\I18n\Events;
 
-use NixPHP\I18n\Core\Translator;
-use NixPHP\I18n\Support\Language;
+use Naf\I18n\Core\Translator;
+use Naf\I18n\Support\Language;
 use Psr\Http\Message\ServerRequestInterface;
-use function NixPHP\app;
+use function Naf\app;
 
 class LocaleListener
 {

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use NixPHP\Core\Config;
-use NixPHP\I18n\Core\Translator;
-use Tests\NixPHPTestCase;
-use function NixPHP\app;
-use function NixPHP\I18n\t;
+use Naf\Core\Config;
+use Naf\I18n\Core\Translator;
+use Tests\NafTestCase;
+use function Naf\app;
+use function Naf\I18n\t;
 
-class TranslatorTest extends NixPHPTestCase
+class TranslatorTest extends NafTestCase
 {
 
     public function testTranslationSuccess()

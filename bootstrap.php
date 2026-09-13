@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use NixPHP\I18n\Core\Translator;
-use NixPHP\I18n\Events\CookieSetListener;
-use NixPHP\I18n\Events\LocaleListener;
-use NixPHP\Core\Event;
-use function NixPHP\app;
-use function NixPHP\event;
+use Naf\I18n\Core\Translator;
+use Naf\I18n\Events\CookieSetListener;
+use Naf\I18n\Events\LocaleListener;
+use Naf\Core\Event;
+use function Naf\app;
+use function Naf\event;
 
 app()->container()->set(Translator::class, fn() => new Translator());
 

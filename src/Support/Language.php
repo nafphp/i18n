@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NixPHP\I18n\Support;
+namespace Naf\I18n\Support;
 
 use ReflectionClass;
-use function NixPHP\config;
+use function Naf\config;
 
 /**
  * Represents supported languages using ISO 639-1 codes.

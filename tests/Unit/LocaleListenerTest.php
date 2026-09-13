@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use NixPHP\I18n\Core\Translator;
-use NixPHP\I18n\Events\LocaleListener;
+use Naf\I18n\Core\Translator;
+use Naf\I18n\Events\LocaleListener;
 use Nyholm\Psr7\ServerRequest;
-use Tests\NixPHPTestCase;
-use function NixPHP\app;
+use Tests\NafTestCase;
+use function Naf\app;
 
-class LocaleListenerTest extends NixPHPTestCase
+class LocaleListenerTest extends NafTestCase
 {
 
     public function testQueryLanguageWinsOverCookieAndHeader()

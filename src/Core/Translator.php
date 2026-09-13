@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NixPHP\I18n\Core;
+namespace Naf\I18n\Core;
 
 use LogicException;
-use NixPHP\I18n\Support\Language;
+use Naf\I18n\Support\Language;
 use Stringable;
 use Throwable;
-use function NixPHP\app;
-use function NixPHP\config;
-use function NixPHP\log;
+use function Naf\app;
+use function Naf\config;
+use function Naf\log;
 
 class Translator
 {

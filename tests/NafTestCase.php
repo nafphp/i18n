@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use NixPHP\Core\Config;
-use NixPHP\I18n\Core\Translator;
+use Naf\Core\Config;
+use Naf\I18n\Core\Translator;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
-use function NixPHP\app;
+use function Naf\app;
 
-class NixPHPTestCase extends TestCase
+class NafTestCase extends TestCase
 {
 
     protected function setUp(): void

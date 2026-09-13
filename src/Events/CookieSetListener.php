@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NixPHP\I18n\Events;
+namespace Naf\I18n\Events;
 
-use NixPHP\I18n\Core\Translator;
-use NixPHP\I18n\Support\Language;
+use Naf\I18n\Core\Translator;
+use Naf\I18n\Support\Language;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function NixPHP\app;
-use function NixPHP\log;
-use function NixPHP\request;
+use function Naf\app;
+use function Naf\log;
+use function Naf\request;
 
 class CookieSetListener
 {

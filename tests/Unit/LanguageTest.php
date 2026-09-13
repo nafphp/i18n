@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use NixPHP\Core\Config;
-use NixPHP\I18n\Support\Language;
-use Tests\NixPHPTestCase;
-use function NixPHP\app;
+use Naf\Core\Config;
+use Naf\I18n\Support\Language;
+use Tests\NafTestCase;
+use function Naf\app;
 
-class LanguageTest extends NixPHPTestCase
+class LanguageTest extends NafTestCase
 {
 
     public function testAllReturnsLanguageCodesOnly()

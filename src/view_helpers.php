@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NixPHP\I18n;
+namespace Naf\I18n;
 
-use NixPHP\I18n\Core\Translator;
-use function NixPHP\app;
+use Naf\I18n\Core\Translator;
+use function Naf\app;
 
 /**
  * @param string $key

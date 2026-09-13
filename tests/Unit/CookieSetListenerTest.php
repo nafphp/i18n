@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use NixPHP\I18n\Core\Translator;
-use NixPHP\I18n\Events\CookieSetListener;
+use Naf\I18n\Core\Translator;
+use Naf\I18n\Events\CookieSetListener;
 use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Psr\Http\Message\RequestInterface;
-use Tests\NixPHPTestCase;
-use function NixPHP\app;
+use Tests\NafTestCase;
+use function Naf\app;
 
-class CookieSetListenerTest extends NixPHPTestCase
+class CookieSetListenerTest extends NafTestCase
 {
 
     public function testReturnsNullWithoutRequest()

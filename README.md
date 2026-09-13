@@ -1,23 +1,23 @@
 <div style="text-align: center;" align="center">
 
-![Logo](https://nixphp.github.io/docs/assets/nixphp-logo-small-square.png)
+![NAF](assets/naf-logo-small-square.png)
 
-[![NixPHP I18n Plugin](https://github.com/nixphp/i18n/actions/workflows/php.yml/badge.svg)](https://github.com/nixphp/i18n/actions/workflows/php.yml)
+[![NAF I18n Plugin](https://github.com/nafphp/i18n/actions/workflows/php.yml/badge.svg)](https://github.com/nafphp/i18n/actions/workflows/php.yml)
 
 </div>
 
-[← Back to NixPHP](https://github.com/nixphp/framework)
+[← Back to NAF](https://github.com/nafphp/framework)
 
 ---
 
-# nixphp/i18n
+# naf/i18n
 
-> **Simple JSON-based translations for your NixPHP application.**
+> **Simple JSON-based translations for your NAF application.**
 
 This plugin provides a lightweight translation system for multilingual apps.
 It reads language files from disk, supports variable replacements, and falls back gracefully — all with minimal overhead.
 
-> 🧩 Part of the official NixPHP plugin collection.
+> 🧩 Part of the official NAF plugin collection.
 > Install it if you want clean, flexible localization without external libraries.
 
 ---
@@ -36,7 +36,7 @@ It reads language files from disk, supports variable replacements, and falls bac
 ## 📥 Installation
 
 ```bash
-composer require nixphp/i18n
+composer require naf/i18n
 ```
 
 The plugin auto-registers and makes a `t()` as well as a `translator()` helper available globally. 
@@ -90,7 +90,7 @@ Result:
 ### 🌍 Switch language
 
 ```php
-use NixPHP\I18n\Support\Language;
+use Naf\I18n\Support\Language;
 
 t()->setLanguage(Language::DE);
 ```
@@ -138,7 +138,7 @@ Each file should be a flat key-value map using UTF-8 encoded JSON.
 
 ## ✅ Requirements
 
-* `nixphp/framework` >= 0.1.0
+* `naf/framework` >= 0.1.0
 * PHP >= 8.1
 
 ---
