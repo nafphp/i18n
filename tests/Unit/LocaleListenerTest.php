@@ -8,11 +8,11 @@ use Naf\I18n\Core\Translator;
 use Naf\I18n\Events\LocaleListener;
 use Nyholm\Psr7\ServerRequest;
 use Tests\NafTestCase;
+
 use function Naf\app;
 
 class LocaleListenerTest extends NafTestCase
 {
-
     public function testQueryLanguageWinsOverCookieAndHeader()
     {
         $request = (new ServerRequest('GET', '/'))

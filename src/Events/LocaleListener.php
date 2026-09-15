@@ -7,11 +7,11 @@ namespace Naf\I18n\Events;
 use Naf\I18n\Core\Translator;
 use Naf\I18n\Support\Language;
 use Psr\Http\Message\ServerRequestInterface;
+
 use function Naf\app;
 
 class LocaleListener
 {
-
     /**
      * Handles locale detection and sets the application language based on request data.
      *
@@ -25,14 +25,14 @@ class LocaleListener
      */
     public function handle(ServerRequestInterface $request): void
     {
-        if (str_contains((string)$request->getUri(), '/favicon.ico')) {
+        if (str_contains((string) $request->getUri(), '/favicon.ico')) {
             return;
         }
 
-        $queryLang   = $request->getQueryParams()['lang'] ?? null;
-        $cookieLang  = $request->getCookieParams()['lang'] ?? null;
-        $headerLang  = $this->parseAcceptLanguage($request->getHeaderLine('Accept-Language'));
-        $language    = $queryLang ?? $cookieLang ?? $headerLang[0] ?? null;
+        $queryLang  = $request->getQueryParams()['lang'] ?? null;
+        $cookieLang = $request->getCookieParams()['lang'] ?? null;
+        $headerLang = $this->parseAcceptLanguage($request->getHeaderLine('Accept-Language'));
+        $language   = $queryLang ?? $cookieLang ?? $headerLang[0] ?? null;
 
         if (null === $language) {
             return;

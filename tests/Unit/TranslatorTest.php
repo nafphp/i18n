@@ -7,12 +7,12 @@ namespace Tests\Unit;
 use Naf\Core\Config;
 use Naf\I18n\Core\Translator;
 use Tests\NafTestCase;
+
 use function Naf\app;
 use function Naf\I18n\t;
 
 class TranslatorTest extends NafTestCase
 {
-
     public function testTranslationSuccess()
     {
         $translator = new Translator();
@@ -91,5 +91,4 @@ class TranslatorTest extends NafTestCase
         app()->container()->set(Config::class, $config);
         $this->assertSame('translated', t('translated'));
     }
-
 }

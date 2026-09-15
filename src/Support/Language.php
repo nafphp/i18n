@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Naf\I18n\Support;
 
 use ReflectionClass;
+
 use function Naf\config;
 
 /**
@@ -15,30 +16,30 @@ class Language
 {
     private static array $cache = [];
 
-    const string EN = 'en';     // English
-    const string DE = 'de';     // German
-    const string FR = 'fr';     // French
-    const string ES = 'es';     // Spanish
-    const string IT = 'it';     // Italian
-    const string PT = 'pt';     // Portuguese
-    const string RU = 'ru';     // Russian
-    const string ZH = 'zh';     // Chinese (Mandarin)
-    const string JA = 'ja';     // Japanese
-    const string KO = 'ko';     // Korean
-    const string AR = 'ar';     // Arabic
-    const string HI = 'hi';     // Hindi
-    const string TR = 'tr';     // Turkish
-    const string PL = 'pl';     // Polish
-    const string NL = 'nl';     // Dutch
-    const string SV = 'sv';     // Swedish
-    const string CS = 'cs';     // Czech
-    const string RO = 'ro';     // Romanian
-    const string HU = 'hu';     // Hungarian
-    const string FA = 'fa';     // Persian (Farsi)
-    const string HE = 'he';     // Hebrew
-    const string UK = 'uk';     // Ukrainian
-    const string TH = 'th';     // Thai
-    const string VI = 'vi';     // Vietnamese
+    public const string EN = 'en';     // English
+    public const string DE = 'de';     // German
+    public const string FR = 'fr';     // French
+    public const string ES = 'es';     // Spanish
+    public const string IT = 'it';     // Italian
+    public const string PT = 'pt';     // Portuguese
+    public const string RU = 'ru';     // Russian
+    public const string ZH = 'zh';     // Chinese (Mandarin)
+    public const string JA = 'ja';     // Japanese
+    public const string KO = 'ko';     // Korean
+    public const string AR = 'ar';     // Arabic
+    public const string HI = 'hi';     // Hindi
+    public const string TR = 'tr';     // Turkish
+    public const string PL = 'pl';     // Polish
+    public const string NL = 'nl';     // Dutch
+    public const string SV = 'sv';     // Swedish
+    public const string CS = 'cs';     // Czech
+    public const string RO = 'ro';     // Romanian
+    public const string HU = 'hu';     // Hungarian
+    public const string FA = 'fa';     // Persian (Farsi)
+    public const string HE = 'he';     // Hebrew
+    public const string UK = 'uk';     // Ukrainian
+    public const string TH = 'th';     // Thai
+    public const string VI = 'vi';     // Vietnamese
 
     private const array LABELS = [
         self::EN => 'English',
@@ -80,7 +81,7 @@ class Language
         $base = strtolower(explode('-', $tag, 2)[0]);
 
         if (!preg_match('/^[a-z]{2,3}$/', $base)) {
-            $fallback = trim((string)(config('fallback_language', self::EN) ?? self::EN));
+            $fallback = trim((string) (config('fallback_language', self::EN) ?? self::EN));
 
             if (str_contains($fallback, ',')) {
                 $fallback = explode(',', $fallback, 2)[0];
@@ -139,6 +140,7 @@ class Language
         }
 
         $ref = new ReflectionClass($class);
+
         return self::$cache[$class] = array_values(array_filter($ref->getConstants(), 'is_string'));
     }
 }

@@ -8,13 +8,13 @@ use Naf\I18n\Core\Translator;
 use Naf\I18n\Support\Language;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+
 use function Naf\app;
 use function Naf\log;
 use function Naf\request;
 
 class CookieSetListener
 {
-
     /**
      * Handles the response by setting a language cookie if necessary.
      *
@@ -31,7 +31,7 @@ class CookieSetListener
     public function handle(ResponseInterface $response): ?ResponseInterface
     {
         $translator = app()->container()->get(Translator::class);
-        $lang = $translator->getLanguage();
+        $lang       = $translator->getLanguage();
 
         if (!$lang || !app()->container()->has(RequestInterface::class)) {
             return null;
@@ -51,12 +51,11 @@ class CookieSetListener
                 sprintf(
                     'lang=%s; Path=/; Max-Age=%d; SameSite=Lax',
                     rawurlencode($lang),
-                    60 * 60 * 24 * 30
-                )
+                    60 * 60 * 24 * 30,
+                ),
             );
         }
 
         return null;
     }
-
 }

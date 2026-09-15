@@ -57,3 +57,7 @@ normalization, missing keys and replacement. Test changed locale selection/cooki
 Do not require the optional native extension. No `analyse` script is declared.
 
 User docs: [Translations](https://nafphp.github.io/docs/translations/).
+
+Follow the shared [PHP code style](https://github.com/nafphp/docs/blob/main/CODE_STYLE.md)
+and `.php-cs-fixer.dist.php`. Run `composer style:check`; `composer style:fix` applies the rules.
+Keep logical steps and local names readable, preserving public signatures and template output.

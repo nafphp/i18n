@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Naf\I18n;
 
 use Naf\I18n\Core\Translator;
+
 use function Naf\app;
 
 /**
