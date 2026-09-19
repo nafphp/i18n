@@ -10,11 +10,11 @@ use Nyholm\Psr7\Response;
 use Nyholm\Psr7\ServerRequest;
 use Psr\Http\Message\RequestInterface;
 use Tests\NafTestCase;
+
 use function Naf\app;
 
 class CookieSetListenerTest extends NafTestCase
 {
-
     public function testReturnsNullWithoutRequest()
     {
         app()->container()->get(Translator::class)->setLanguage('en');

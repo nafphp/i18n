@@ -8,57 +8,51 @@ use LogicException;
 use Naf\I18n\Support\Language;
 use Stringable;
 use Throwable;
+
 use function Naf\app;
 use function Naf\config;
+use function Naf\I18n\translation_paths;
 use function Naf\log;
 
 class Translator
 {
     private ?string $language;
-    private array $data = [];
+    private array $data       = [];
+    private int $pathRevision = -1;
 
-    /**
-     * Initializes the Translator with an optional language and loads translation data.
-     *
-     * @param string|null $language The language code to use, or null to use default from config.
-     *
-     * @return void
-     */
+    /** Load translations for the supplied language, or the configured default. */
     public function __construct(?string $language = null)
     {
         $this->language = $language ? Language::normalize($language) : null;
         $this->reload();
     }
 
-    /**
-     * Reload translation files
-     *
-     * @return void
-     */
+    /** Reload translations, logging unreadable or invalid language files. */
     public function reload(): void
     {
         $this->language ??= Language::normalize(
-            (string)(config('language') ?? config('fallback_language', Language::EN))
+            (string) (config('language') ?? config('fallback_language', Language::EN)),
         );
 
         try {
             $this->data = $this->loadLanguageData($this->language);
-        } catch (Throwable $t) {
-            log()->info($t->getMessage());
+        } catch (Throwable $exception) {
+            log()->info($exception->getMessage());
             $this->data = [];
         }
+
+        $this->pathRevision = translation_paths()->revision();
     }
 
-    /**
-     * Translates the given key using the translation data and replaces placeholders with provided parameters.
-     *
-     * @param string $key    The key to translate.
-     * @param array  $params An associative array of parameters for placeholder replacement.
-     *
-     * @return string The translated string with placeholders replaced.
-     */
+    /** Replace placeholders with scalar or stringable parameter values. */
     public function translate(string $key, array $params = []): string
     {
+        // A directory registered or removed after this translator was built
+        // changes what the answer should be, so the data is read again.
+        if ($this->pathRevision !== translation_paths()->revision()) {
+            $this->reload();
+        }
+
         $result = $this->data[$key] ?? $key;
 
         if ($params === []) {
@@ -67,34 +61,23 @@ class Translator
 
         $replacements = [];
 
-        foreach ($params as $k => $v) {
-            if (!is_scalar($v) && !$v instanceof Stringable && $v !== null) {
+        foreach ($params as $placeholder => $value) {
+            if (!is_scalar($value) && !$value instanceof Stringable && $value !== null) {
                 continue;
             }
 
-            $replacements[':' . $k] = (string)$v;
+            $replacements[':' . $placeholder] = (string) $value;
         }
 
         return $replacements === [] ? $result : strtr($result, $replacements);
     }
 
-    /**
-     * Retrieves the language value.
-     *
-     * @return string|null The language value or null if not set.
-     */
     public function getLanguage(): ?string
     {
         return $this->language;
     }
 
-    /**
-     * Sets the language value and reloads the related configuration.
-     *
-     * @param string $lang The language value to set.
-     *
-     * @return void
-     */
+    /** Normalize the language and reload its translations. */
     public function setLanguage(string $lang): void
     {
         $this->language = Language::normalize($lang);
@@ -102,33 +85,41 @@ class Translator
     }
 
     /**
-     * Loads the language data from the appropriate JSON file.
-     *
-     * Determines the language to load based on the current language value or configurations.
-     * Reads the corresponding translation file, validates its contents, and sets the language data.
-     * Throws an exception if the file is missing or its contents are invalid.
-     *
-     * @param string $lang The language code to load.
-     *
      * @return array<string,string>
-     * @throws LogicException If the language file is not found or contains invalid JSON.
+     * @throws LogicException If the language file is missing or contains invalid JSON.
      */
     private function loadLanguageData(string $lang): array
     {
-        $filePath = app()->getBasePath() . config('app:translationPath', '/app/Resources/lang');
-        $file     = sprintf('%s/%s.json', $filePath, $lang);
+        $directories = [
+            ...array_values(translation_paths()->all()),
+            app()->getBasePath() . config('app:translationPath', '/app/Resources/lang'),
+        ];
 
-        if (!file_exists($file)) {
-            throw new \LogicException('Language file not found: ' . $file);
+        $data  = [];
+        $found = false;
+
+        foreach ($directories as $directory) {
+            $file = sprintf('%s/%s.json', rtrim($directory, '/\\'), $lang);
+
+            if (!file_exists($file)) {
+                continue;
+            }
+
+            $decoded = json_decode(file_get_contents($file), true);
+
+            if (!is_array($decoded)) {
+                throw new LogicException('Invalid JSON in language file: ' . $file);
+            }
+
+            // The application's directory is read last, so its wording wins.
+            $data  = [...$data, ...$decoded];
+            $found = true;
         }
 
-        $data = json_decode(file_get_contents($file), true);
-
-        if (!is_array($data)) {
-            throw new \LogicException('Invalid JSON in language file: ' . $file);
+        if (!$found) {
+            throw new LogicException('Language file not found for: ' . $lang);
         }
 
         return $data;
     }
-
 }

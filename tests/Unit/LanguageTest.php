@@ -7,11 +7,11 @@ namespace Tests\Unit;
 use Naf\Core\Config;
 use Naf\I18n\Support\Language;
 use Tests\NafTestCase;
+
 use function Naf\app;
 
 class LanguageTest extends NafTestCase
 {
-
     public function testAllReturnsLanguageCodesOnly()
     {
         $this->assertContains(Language::EN, Language::all());
